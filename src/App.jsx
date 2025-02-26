@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <main className='container'>
+      <main className='container-fluid'>
         <table className='table'>
 
           <thead>
@@ -36,7 +36,7 @@ function App() {
                 posts.map((post) => {
                   return (
                     <th scope="col" key={post.id}>
-                      {post.title}
+                      <p>{post.title}</p>
                     </th>
                   )
                 })
@@ -48,14 +48,27 @@ function App() {
               {
                 posts.map((post) => {
                   return (
-                    <th scope="col" key={post.id}>
-                      {post.content}
-                    </th>
+                    <td scope="col" key={post.id}>
+                      <p>{post.content}</p>
+                    </td>
                   )
                 })
               }
             </tr>
           </tbody>
+          <tfoot>
+            <tr>
+              {
+                posts.map((post) => {
+                  return (
+                    <td scope="col" key={post.id}>
+                      <p>{post.tags}</p>
+                    </td>
+                  )
+                })
+              }
+            </tr>
+          </tfoot>
 
         </table>
 
