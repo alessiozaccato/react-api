@@ -3,21 +3,63 @@ import { useState, useEffect } from 'react'
 function App() {
 
   //let's create the dinamic array of posts
-  const [posts, SetPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  const fetchPosts = () => {
-    fetch('https://localhost:3000')
-      .then((res) => res.json())
-      .then((data) => SetPosts(data.results))
+  //WITH FETCH METHOD
+  // const fetchPosts = () => {
+  //   fetch('http://localhost:3000/posts')
+  //     .then((res) => res.json())
+  //     // .then((data) => setPosts(data.results))
+  //     .then(setPosts)
 
-      .catch((err) => console.error(err));
+
+  //     .catch((err) => console.error(err));
+  // }
+
+  //with Axios Method
+  function fetchPosts() {
+    axios
+      .get('http://localhost:3000/posts')
+      .then((res) => setPosts(res.data));
   }
 
   useEffect(fetchPosts, []);
 
   return (
     <>
-      <h1>React Api</h1>
+      <main className='container'>
+        <table className='table'>
+
+          <thead>
+            <tr>
+              {
+                posts.map((post) => {
+                  return (
+                    <th scope="col" key={post.id}>
+                      {post.title}
+                    </th>
+                  )
+                })
+              }
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {
+                posts.map((post) => {
+                  return (
+                    <th scope="col" key={post.id}>
+                      {post.content}
+                    </th>
+                  )
+                })
+              }
+            </tr>
+          </tbody>
+
+        </table>
+
+      </main>
     </>
   )
 }
