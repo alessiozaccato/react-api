@@ -20,7 +20,13 @@ function App() {
   function fetchPosts() {
     axios
       .get('http://localhost:3000/posts')
-      .then((res) => setPosts(res.data));
+      .then((res) => {
+        return (
+
+          // console.log(res.data),
+          setPosts(res.data)
+        )
+      });
   }
 
   useEffect(fetchPosts, []);
@@ -50,6 +56,10 @@ function App() {
                   return (
                     <td scope="col" key={post.id}>
                       <p>{post.content}</p>
+                      <figure>
+                        <img className='img-fluid' src={post.image} alt={post.title} />
+                      </figure>
+
                     </td>
                   )
                 })
@@ -62,7 +72,8 @@ function App() {
                 posts.map((post) => {
                   return (
                     <td scope="col" key={post.id}>
-                      <p>{post.tags}</p>
+                      <p># {post.tags.join(" #")} </p>
+
                     </td>
                   )
                 })
