@@ -6,15 +6,15 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   //let's initialize the intialFormData in a empty object with keys from the server
-  const initialFormData = {
-    title: '',
-    content: '',
-    image: '',
-    tags: [],
-  };
+  // const initialFormData = {
+  //   title: '',
+  //   content: '',
+  //   image: '',
+  //   tags: [],
+  // };
 
   //let's build dinamic information with useState,with initial value the empty object 
-  const [formData, setFormData] = useState(initialFormData);
+  // const [formData, setFormData] = useState(initialFormData);
 
   //WITH FETCH METHOD
   // const fetchPosts = () => {
@@ -37,8 +37,9 @@ function App() {
   }
 
   const handleDelete = (idPost) => {
-    axios.delete(`http://localhost:3000/posts/${idPost}`)
-      .then(fetchPosts())
+    axios.delete(`http://localhost:3000/posts/${idPost}`).then
+      // (fetchPosts())
+      (setPosts(posts.filter(post => post.id !== idPost)))
 
   };
 
