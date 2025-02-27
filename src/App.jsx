@@ -5,6 +5,17 @@ function App() {
   //let's create the dinamic array of posts
   const [posts, setPosts] = useState([]);
 
+  //let's initialize the intialFormData in a empty object with keys from the server
+  const initialFormData = {
+    title: '',
+    content: '',
+    image: '',
+    tags: [],
+  };
+
+  //let's build dinamic information with useState,with initial value the empty object 
+  const [formData, setFormData] = useState(initialFormData);
+
   //WITH FETCH METHOD
   // const fetchPosts = () => {
   //   fetch('http://localhost:3000/posts')
@@ -16,18 +27,21 @@ function App() {
   //     .catch((err) => console.error(err));
   // }
 
-  //with Axios Method
+  //with get Axios Method 
   function fetchPosts() {
     axios
       .get('http://localhost:3000/posts')
       .then((res) => {
-        return (
-
-          // console.log(res.data),
-          setPosts(res.data)
-        )
+        setPosts(res.data)
       });
   }
+
+  const handleDelete = (idPost) => {
+    axios.delete(`http://localhost:3000/posts/${idPost}`)
+      .then(fetchPosts())
+
+  };
+
 
   useEffect(fetchPosts, []);
 
@@ -43,6 +57,12 @@ function App() {
                   return (
                     <th scope="col" key={post.id}>
                       <p>{post.title}</p>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(post.id)}
+                      >
+                        x
+                      </button>
                     </th>
                   )
                 })
@@ -59,6 +79,7 @@ function App() {
                       <figure>
                         <img className='img-fluid' src={post.image} alt={post.title} />
                       </figure>
+
 
                     </td>
                   )
