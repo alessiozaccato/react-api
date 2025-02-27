@@ -31,15 +31,16 @@ function App() {
   function fetchPosts() {
     axios
       .get('http://localhost:3000/posts')
-      .then((res) => {
-        setPosts(res.data)
-      });
+      .then((res) => setPosts(res.data))
   }
 
   const handleDelete = (idPost) => {
-    axios.delete(`http://localhost:3000/posts/${idPost}`).then
-      // (fetchPosts())
-      (setPosts(posts.filter(post => post.id !== idPost)))
+    axios.delete(`http://localhost:3000/posts/${idPost}`).then(() => {
+
+      // fetchPosts()
+      setPosts(posts.filter(post => post.id !== idPost))
+    })
+
 
   };
 
